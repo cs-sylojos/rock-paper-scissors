@@ -1,6 +1,7 @@
 function getComputerChoice() {
     let computerChoice;
     let randomNumber = Math.floor(Math.random() * 3);
+
     if (randomNumber === 0) {
         computerChoice = 'ROCK';
     } else if (randomNumber === 1) {
@@ -8,32 +9,87 @@ function getComputerChoice() {
     } else {
         computerChoice = 'SCISSORS';
     }
-    console.log(randomNumber);
-    console.log(computerChoice);
+
     return computerChoice;
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLocaleUpperCase();
+    console.log(`Player throw ${playerSelection}`);
+    console.log(`Computer throw ${computerSelection}`);
 
     if (playerSelection === 'ROCK' && computerSelection === 'SCISSORS') {
-        return `You Win! Rock beat Scissors`;
+        console.log(`You Win! Rock beat Scissors`);
+        return 1;
     } else if (playerSelection === 'PAPER' && computerSelection === 'ROCK') {
-        return `You Win! Paper beat Rock`;
+        console.log(`You Win! Paper beat Rock`);
+        return 1;
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'PAPER') {
-        return `You Win! Scissors beat Paper`;
+        console.log(`You Win! Scissors beat Paper`);
+        return 1;
     } else if (playerSelection === 'ROCK' && computerSelection === 'PAPER') {
-        return `You Lose! Paper beat Rock`;
+        console.log(`You Lose! Paper beat Rock`);
+        return 0;
     } else if (playerSelection === 'PAPER' && computerSelection === 'SCISSORS') {
-        return `You Lose! Scissors beat Paper`;
+        console.log(`You Lose! Scissors beat Paper`);
+        return 0;
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'ROCK') {
-        return `You Lose! Rock beat Scissors`;
+        console.log(`You Lose! Rock beat Scissors`);
+        return 0;
     }
 
-    return `It's a tie!`;
+    console.log(`It's a tie!`);
+    return 2;
 }
 
-//const playerSelection = 'RocK';
-const playerSelection = prompt("Enter Rock, Paper, or Scissors: ");
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+    let playerWinCount = 0;
+    let computerWinCount = 0;
+    let playerSelection;
+    let exit = false;
+
+    for (let round = 1; round <= 5; round++) {
+        for (;;) {
+            playerSelection = prompt(`Round ${round}: Enter Rock, Paper, or Scissors: `);
+            if (playerSelection === null) {
+                exit = true;
+                break;
+            }
+            playerSelection = playerSelection.toLocaleUpperCase();
+            if (playerSelection === 'ROCK' || playerSelection === 'PAPER' || playerSelection === 'SCISSORS') {
+                break;
+            } else if (playerSelection === 'QUIT') {
+                exit = true;
+                break;
+            }
+            console.log(`Please enter one of the choices: Rock, Paper, or Scissors`);
+        }
+        if (exit === true) {
+            console.log(`You have quit the game.`);
+            break;
+        }
+        const computerSelection = getComputerChoice();
+        console.log(`Round ${round}: `);
+        let count = playRound(playerSelection, computerSelection);
+        if (count === 1) {
+            playerWinCount++;
+            console.log(`Round ${round} score: Player - ${playerWinCount} vs Computer - ${computerWinCount}`);
+        } else if (count === 0) {
+            computerWinCount++;
+            console.log(`Round ${round} score: Player - ${playerWinCount} vs Computer - ${computerWinCount}`);
+        } else if (count === 2) {
+            console.log(`Round ${round} score: Player - ${playerWinCount} vs Computer - ${computerWinCount}`);
+        }
+    }
+
+    if (exit === false) {
+        if (playerWinCount > computerWinCount) {
+            console.log(`Winner is Player!`);
+        } else if (playerWinCount < computerWinCount) {
+            console.log(`Winner is Computer!`);
+        } else {
+            console.log(`There is no winner. It's a tie!`);
+        }
+    }
+}
+
+game();
