@@ -14,26 +14,50 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    console.log(`Player throw ${playerSelection}`);
-    console.log(`Computer throw ${computerSelection}`);
+    const elementToRemove = document.querySelectorAll(`div#outputContainer > p`);
+    elementToRemove.forEach((element) => {
+        if (element !== null) {
+            element.remove();
+        }
+    });
+
+    displayResult('Player', playerSelection);
+    displayResult('Computer', undefined, computerSelection);
 
     if (playerSelection === 'ROCK' && computerSelection === 'SCISSORS') {
-        console.log(`You Win! Rock beat Scissors`);
+        displayResult(undefined, playerSelection, computerSelection, 'Win');
     } else if (playerSelection === 'PAPER' && computerSelection === 'ROCK') {
-        console.log(`You Win! Paper beat Rock`);
+        displayResult(undefined, playerSelection, computerSelection, 'Win');
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'PAPER') {
-        console.log(`You Win! Scissors beat Paper`);
+        displayResult(undefined, playerSelection, computerSelection, 'Win');
     } else if (playerSelection === 'ROCK' && computerSelection === 'PAPER') {
-        console.log(`You Lose! Paper beat Rock`);
+        displayResult(undefined, playerSelection, computerSelection, 'Lose');
     } else if (playerSelection === 'PAPER' && computerSelection === 'SCISSORS') {
-        console.log(`You Lose! Scissors beat Paper`);
+        displayResult(undefined, playerSelection, computerSelection, 'Lose');
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'ROCK') {
-        console.log(`You Lose! Rock beat Scissors`);
+        displayResult(undefined, playerSelection, computerSelection, 'Lose');
     } else {
-        console.log(`It's a tie!`);
+        displayResult(undefined, playerSelection, computerSelection);
     }
 }
 
+function displayResult(who, playerChoice = null, computerChoice = null, winLose = 'tie') {
+    const content = document.createElement('p');
+    if (playerChoice !== null && computerChoice === null) {
+        content.classList.add(who);
+        content.textContent = `${who} throw ${playerChoice}`;
+    } else if (playerChoice === null && computerChoice !== null) {
+        content.classList.add(who);
+        content.textContent = `${who} throw ${computerChoice}`;
+    } else if (playerChoice !== null && computerChoice !== null && winLose === 'Win') {
+        content.textContent = `You ${winLose}! ${playerChoice} beat ${computerChoice}`;
+    } else if (playerChoice !== null && computerChoice !== null && winLose === 'Lose') {
+        content.textContent = `You ${winLose}! ${computerChoice} beat ${playerChoice}`;
+    } else if (playerChoice === computerChoice) {
+        content.textContent = `It's a ${winLose}!`;
+    }
+    outputResult.appendChild(content);
+}
 /*
 function game() {
     let playerWinCount = 0;
@@ -93,6 +117,7 @@ function game() {
 
 game();*/
 
+const outputResult = document.querySelector('#outputContainer');
 const playerSelection = document.querySelectorAll('button');
 playerSelection.forEach((playerChoice) => {
     playerChoice.addEventListener('click', e => {
