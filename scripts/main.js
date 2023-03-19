@@ -26,16 +26,22 @@ function playRound(playerSelection, computerSelection) {
 
     if (playerSelection === 'ROCK' && computerSelection === 'SCISSORS') {
         displayResult(undefined, playerSelection, computerSelection, 'Win');
+        playerWinCount++;
     } else if (playerSelection === 'PAPER' && computerSelection === 'ROCK') {
         displayResult(undefined, playerSelection, computerSelection, 'Win');
+        playerWinCount++;
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'PAPER') {
         displayResult(undefined, playerSelection, computerSelection, 'Win');
+        playerWinCount++;
     } else if (playerSelection === 'ROCK' && computerSelection === 'PAPER') {
         displayResult(undefined, playerSelection, computerSelection, 'Lose');
+        computerWinCount++;
     } else if (playerSelection === 'PAPER' && computerSelection === 'SCISSORS') {
         displayResult(undefined, playerSelection, computerSelection, 'Lose');
+        computerWinCount++;
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'ROCK') {
         displayResult(undefined, playerSelection, computerSelection, 'Lose');
+        computerWinCount++;
     } else {
         displayResult(undefined, playerSelection, computerSelection);
     }
@@ -50,78 +56,45 @@ function displayResult(who, playerChoice = null, computerChoice = null, winLose 
         content.classList.add(who);
         content.textContent = `${who} throw ${computerChoice}`;
     } else if (playerChoice !== null && computerChoice !== null && winLose === 'Win') {
-        content.textContent = `You ${winLose}! ${playerChoice} beat ${computerChoice}`;
+        content.textContent = `Player score! ${playerChoice} beat ${computerChoice}`;
     } else if (playerChoice !== null && computerChoice !== null && winLose === 'Lose') {
-        content.textContent = `You ${winLose}! ${computerChoice} beat ${playerChoice}`;
+        content.textContent = `Computer score! ${computerChoice} beat ${playerChoice}`;
     } else if (playerChoice === computerChoice) {
         content.textContent = `It's a ${winLose}!`;
     }
     outputResult.appendChild(content);
 }
-/*
-function game() {
-    let playerWinCount = 0;
-    let computerWinCount = 0;
-    let playerSelection;
-    let exit = false;
 
-    const btns = document.querySelectorAll('button');
-    btns.forEach((btn) => {
-        btn.addEventListener('click', playRound());
-    });
-
-    for (let round = 1; round <= 5; round++) {
-        for (;;) {
-            playerSelection = prompt(`Round ${round}: Enter Rock, Paper, or Scissors: `);
-            if (playerSelection === null) {
-                exit = true;
-                break;
-            }
-            playerSelection = playerSelection.toLocaleUpperCase();
-            if (playerSelection === 'ROCK' || playerSelection === 'PAPER' || playerSelection === 'SCISSORS') {
-                break;
-            } else if (playerSelection === 'QUIT') {
-                exit = true;
-                break;
-            }
-            console.log(`Please enter one of the choices: Rock, Paper, or Scissors`);
-        }
-        if (exit === true) {
-            console.log(`You have quit the game.`);
-            break;
-        }
-        const computerSelection = getComputerChoice();
-        console.log(`Round ${round}: `);
-        let count = playRound(playerSelection, computerSelection);
-        if (count === 1) {
-            playerWinCount++;
-            console.log(`Round ${round} score: Player - ${playerWinCount} vs Computer - ${computerWinCount}`);
-        } else if (count === 0) {
-            computerWinCount++;
-            console.log(`Round ${round} score: Player - ${playerWinCount} vs Computer - ${computerWinCount}`);
-        } else if (count === 2) {
-            console.log(`Round ${round} score: Player - ${playerWinCount} vs Computer - ${computerWinCount}`);
-        }
-    }
-
-    if (exit === false) {
-        if (playerWinCount > computerWinCount) {
-            console.log(`Winner is Player!`);
-        } else if (playerWinCount < computerWinCount) {
-            console.log(`Winner is Computer!`);
-        } else {
-            console.log(`There is no winner. It's a tie!`);
-        }
-    }
-}
-
-game();*/
-
+let roundCount = 0;
+let playerWinCount = 0;
+let computerWinCount = 0;
+const round = document.querySelector('#round');
+const score = document.querySelector('#score');
+const winner = document.querySelector('#winner');
 const outputResult = document.querySelector('#outputContainer');
 const playerSelection = document.querySelectorAll('button');
 playerSelection.forEach((playerChoice) => {
     playerChoice.addEventListener('click', e => {
         const computerSelection = getComputerChoice();
         playRound(e.target.id.toLocaleUpperCase(), computerSelection);
+        roundCount++;
+        const winnerToRemove = document.querySelector('div#winner > p');
+        if (winnerToRemove !== null) {
+            winnerToRemove.remove();
+        }
+        round.textContent = `Round ${roundCount}`;
+        score.textContent = `Player - ${playerWinCount} vs Computer - ${computerWinCount}`;
+        if (playerWinCount === 5 || computerWinCount === 5) {
+            roundCount = 0;
+            const winnerContent = document.createElement('p');
+            if (playerWinCount === 5) {
+                winnerContent.textContent = `Game Over! Player has Won the game!`;
+            } else if (computerWinCount === 5) {
+                winnerContent.textContent = `Game Over! Computer has Won the game!`;
+            }
+            playerWinCount = 0;
+            computerWinCount = 0;
+            winner.appendChild(winnerContent);
+        }
     });
 });
