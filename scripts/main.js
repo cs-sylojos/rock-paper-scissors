@@ -69,10 +69,11 @@ let roundCount = 0;
 let playerWinCount = 0;
 let computerWinCount = 0;
 const round = document.querySelector('#round');
-const score = document.querySelector('#score');
+const playerScore = document.querySelector('#playerScore');
+const computerScore = document.querySelector('#computerScore');
 const winner = document.querySelector('#winner');
 const outputResult = document.querySelector('#outputContainer');
-const playerSelection = document.querySelectorAll('button');
+const playerSelection = document.querySelectorAll('.buttonContainer > button');
 playerSelection.forEach((playerChoice) => {
     playerChoice.addEventListener('click', e => {
         const computerSelection = getComputerChoice();
@@ -83,7 +84,8 @@ playerSelection.forEach((playerChoice) => {
             winnerToRemove.remove();
         }
         round.textContent = `Round ${roundCount}`;
-        score.textContent = `Player - ${playerWinCount} vs Computer - ${computerWinCount}`;
+        playerScore.textContent = `Player - ${playerWinCount}`;
+        computerScore.textContent = `Computer - ${computerWinCount}`;
         if (playerWinCount === 5 || computerWinCount === 5) {
             roundCount = 0;
             const winnerContent = document.createElement('p');
