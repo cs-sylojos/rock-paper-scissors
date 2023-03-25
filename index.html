@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
+
 <body>
-    <div id="description">Winner will be declared after either player or computer win 5 rounds of game.</div>
-    <div id="round">Round 1</div>
-    <div id="score">Player - 0 vs Computer - 0</div>
-    <div id="winner"></div>
-    <div id="outputContainer"></div>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
+    <div class="headerContainer">
+        <h1 id="greet">Welcome to classic Rock Paper Scissors game.</h1>
+        <div id="description">
+            <p>Winner will be declared after either player or computer score 5 points.</p>
+        </div>
+        <div id="winner"></div>
+    </div>
+    <div class="bodyContainer">
+        <div class="playerContainer">
+            <div id="playerScore">Player - 0</div>
+            <div id="playerChoiceImage">
+                <img src="./images/question_mark.png" alt="Question mark">
+            </div>
+            <div class="buttonContainer">
+                <button id="rock">Rock</button>
+                <button id="paper">Paper</button>
+                <button id="scissors">Scissors</button>
+            </div>
+        </div>
+        <div class="resultContainer">
+            <div id="round">Round 1</div>
+            <div id="outputContainer"></div>
+        </div>
+        <div class="computerContainer">
+            <div id="computerScore">Computer - 0</div>
+            <div id="computerChoiceImage">
+                <img src="./images/question_mark.png" alt="Question mark">
+            </div>
+        </div>
+    </div>
     <script src="./scripts/main.js"></script>
 </body>
+
 </html>
