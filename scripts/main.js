@@ -26,24 +26,46 @@ function playRound(playerSelection, computerSelection) {
 
     if (playerSelection === 'ROCK' && computerSelection === 'SCISSORS') {
         displayResult(undefined, playerSelection, computerSelection, 'Win');
+        playerChoiceImage.src = './images/rock.png';
+        computerChoiceImage.src = './images/scissor.png';
         playerWinCount++;
     } else if (playerSelection === 'PAPER' && computerSelection === 'ROCK') {
         displayResult(undefined, playerSelection, computerSelection, 'Win');
+        playerChoiceImage.src = './images/paper.png';
+        computerChoiceImage.src = './images/rock.png';
         playerWinCount++;
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'PAPER') {
         displayResult(undefined, playerSelection, computerSelection, 'Win');
+        playerChoiceImage.src = './images/scissor.png';
+        computerChoiceImage.src = './images/paper.png';
         playerWinCount++;
     } else if (playerSelection === 'ROCK' && computerSelection === 'PAPER') {
         displayResult(undefined, playerSelection, computerSelection, 'Lose');
+        playerChoiceImage.src = './images/rock.png';
+        computerChoiceImage.src = './images/paper.png';
         computerWinCount++;
     } else if (playerSelection === 'PAPER' && computerSelection === 'SCISSORS') {
         displayResult(undefined, playerSelection, computerSelection, 'Lose');
+        playerChoiceImage.src = './images/paper.png';
+        computerChoiceImage.src = './images/scissor.png';
         computerWinCount++;
     } else if (playerSelection === 'SCISSORS' && computerSelection === 'ROCK') {
         displayResult(undefined, playerSelection, computerSelection, 'Lose');
+        playerChoiceImage.src = './images/scissor.png';
+        computerChoiceImage.src = './images/rock.png';
         computerWinCount++;
     } else {
         displayResult(undefined, playerSelection, computerSelection);
+        if (playerSelection === 'ROCK' && computerSelection === 'ROCK') {
+            playerChoiceImage.src = './images/rock.png';
+            computerChoiceImage.src = './images/rock.png';
+        } else if (playerSelection === 'PAPER' && computerSelection === 'PAPER') {
+            playerChoiceImage.src = './images/paper.png';
+            computerChoiceImage.src = './images/paper.png';
+        } else if (playerSelection === 'SCISSORS' && computerSelection === 'SCISSORS') {
+            playerChoiceImage.src = './images/scissor.png';
+            computerChoiceImage.src = './images/scissor.png';
+        }
     }
 }
 
@@ -74,6 +96,8 @@ const computerScore = document.querySelector('#computerScore');
 const winner = document.querySelector('#winner');
 const outputResult = document.querySelector('#outputContainer');
 const playerSelection = document.querySelectorAll('.buttonContainer > button');
+const computerChoiceImage = document.querySelector('#computerImage');
+const playerChoiceImage = document.querySelector('#playerImage');
 playerSelection.forEach((playerChoice) => {
     playerChoice.addEventListener('click', e => {
         const computerSelection = getComputerChoice();
