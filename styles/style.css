@@ -60,6 +60,18 @@ img {
     background-color: coral;
     padding: 6px 25px;
     font-weight: 800;
+    box-shadow: 0 3px #999;
+    cursor: pointer;
+}
+
+#rock:hover, #paper:hover, #scissors:hover, #restart:hover {
+    background-color: rgb(241, 75, 29);
+}
+
+#rock:active, #paper:active, #scissors:active, #restart:active {
+    background-color: rgb(241, 75, 29);
+    box-shadow: 0 2px #5a5a5a;
+    transform: translateY(1px);
 }
 
 .resultContainer {
