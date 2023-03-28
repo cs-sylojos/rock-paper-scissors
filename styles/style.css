@@ -29,6 +29,7 @@ body {
     height: 300px;
     width: 300px;
     margin: auto;
+    margin-bottom: 5px;
     background-color: white;
     border: 2px solid black;
 }
@@ -53,10 +54,19 @@ img {
     margin-top: 5px;
 }
 
-#rock, #paper, #scissors {
+#rock, #paper, #scissors, #restart {
     border-radius: 6px;
     border-style: none;
     background-color: coral;
     padding: 6px 25px;
     font-weight: 800;
+}
+
+.resultContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#restart {
+    align-self: center;
 }

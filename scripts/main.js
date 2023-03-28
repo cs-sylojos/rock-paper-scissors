@@ -90,6 +90,7 @@ function displayResult(who, playerChoice = null, computerChoice = null, winLose 
 let roundCount = 0;
 let playerWinCount = 0;
 let computerWinCount = 0;
+let endMatch = false;
 const round = document.querySelector('#round');
 const playerScore = document.querySelector('#playerScore');
 const computerScore = document.querySelector('#computerScore');
@@ -98,6 +99,7 @@ const outputResult = document.querySelector('#outputContainer');
 const playerSelection = document.querySelectorAll('.buttonContainer > button');
 const computerChoiceImage = document.querySelector('#computerImage');
 const playerChoiceImage = document.querySelector('#playerImage');
+const restartButton = document.querySelector('#restart');
 playerSelection.forEach((playerChoice) => {
     playerChoice.addEventListener('click', e => {
         const computerSelection = getComputerChoice();
@@ -121,6 +123,36 @@ playerSelection.forEach((playerChoice) => {
             playerWinCount = 0;
             computerWinCount = 0;
             winner.appendChild(winnerContent);
+            endMatch = true;
+            document.getElementById('rock').style.display = "none";
+            document.getElementById('paper').style.display = "none";
+            document.getElementById('scissors').style.display = "none";
         }
     });
+});
+
+restartButton.addEventListener('click', () => {
+    playerWinCount = 0;
+    computerWinCount = 0;
+    const elementToRemove = document.querySelectorAll(`div#outputContainer > p`);
+    const winnerToRemove = document.querySelector('div#winner > p');
+    elementToRemove.forEach((element) => {
+        if (element !== null) {
+            element.remove();
+        }
+    });
+    if (winnerToRemove !== null) {
+        winnerToRemove.remove();
+    }
+    round.textContent = `Round`;
+    playerScore.textContent = `Player - ${playerWinCount}`;
+    computerScore.textContent = `Computer - ${computerWinCount}`;
+    playerChoiceImage.src = './images/question_mark.png';
+    computerChoiceImage.src = './images/question_mark.png';
+    if (endMatch === true) {
+        document.getElementById('rock').style.display = "inline-block";
+        document.getElementById('paper').style.display = "inline-block";
+        document.getElementById('scissors').style.display = "inline-block";
+        endMatch = false;
+    }
 });
